@@ -71,6 +71,7 @@ model Organization {
 
   // Billing
   plan                   Plan     @default(FREE)
+  stripeCustomerId       String?  @unique
   stripeSubscriptionId   String?
   stripeSubscriptionStatus String?
 

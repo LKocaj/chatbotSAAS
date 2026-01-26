@@ -1,311 +1,326 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { MessageSquare, Phone, Globe, Zap, BarChart3, Clock, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navigation */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <MessageSquare className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold">LeadChat</span>
-          </Link>
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-              Features
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
+      {/* Hero Section with Gradient */}
+      <section className="relative min-h-screen">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-rose-50 to-sky-100" />
+
+        {/* 3D Shape Decoration */}
+        <div className="absolute top-20 right-0 w-1/2 h-[500px] opacity-80">
+          <div className="relative w-full h-full">
+            <div className="absolute top-10 right-20 w-64 h-64 bg-gradient-to-br from-sky-200 to-indigo-300 rounded-[40%_60%_70%_30%/60%_30%_70%_40%] blur-sm" />
+            <div className="absolute top-32 right-40 w-48 h-48 bg-gradient-to-br from-emerald-200 to-teal-300 rounded-[50%_50%_40%_60%/40%_60%_50%_50%] blur-sm" />
+            <div className="absolute top-20 right-60 w-32 h-32 bg-gradient-to-br from-orange-200 to-rose-300 rounded-full blur-sm" />
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <header className="relative z-10">
+          <div className="container mx-auto px-6 py-6 flex items-center justify-between">
+            <Link href="/" className="text-2xl font-bold tracking-tight">
+              LEADCHAT
             </Link>
-            <Link href="#pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-              Pricing
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link href="#features" className="text-sm font-medium hover:opacity-70 transition">
+                Features
+              </Link>
+              <Link href="#pricing" className="text-sm font-medium hover:opacity-70 transition">
+                Pricing
+              </Link>
+              <Link href="#testimonials" className="text-sm font-medium hover:opacity-70 transition">
+                Reviews
+              </Link>
+            </nav>
+            <Link
+              href="/signup"
+              className="px-6 py-2.5 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+            >
+              Sign me up
             </Link>
-            <Link href="#channels" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-              Channels
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <Link href="/login">
-              <Button variant="ghost">Log in</Button>
-            </Link>
-            <Link href="/signup">
-              <Button>Get Started</Button>
+          </div>
+        </header>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 pt-20 pb-32">
+          <div className="max-w-xl">
+            <h1 className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+              Simplify<br />your work
+            </h1>
+            <p className="text-lg text-gray-600 mb-8">
+              AI-powered chatbots meet your business to deliver exceptional results.
+            </p>
+            <Link
+              href="/signup"
+              className="inline-block px-8 py-3 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+            >
+              Sign me up
             </Link>
           </div>
         </div>
-      </header>
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-20 md:py-32">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm mb-6">
-              <span className="text-primary font-medium">New</span>
-              <span className="mx-2 text-muted-foreground">|</span>
-              <span className="text-muted-foreground">WhatsApp & Messenger integration now live</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              24/7 AI Chat That
-              <span className="text-primary"> Books Appointments</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Deploy intelligent chatbots across Website, SMS, WhatsApp, and Messenger.
-              Capture leads and convert visitors into customers automatically.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/signup">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Start Free Trial
-                </Button>
-              </Link>
-              <Link href="#demo">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  Watch Demo
-                </Button>
+        {/* Subheadline */}
+        <div className="relative z-10 container mx-auto px-6 pb-8">
+          <p className="text-lg">Your all-in-one, AI-powered chatbot platform</p>
+        </div>
+      </section>
+
+      {/* At Your Fingertips Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight mb-6">
+                At your<br />fingertips
+              </h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Service has never been faster, better, or more attuned to your needs.
+              </p>
+              <Link
+                href="#features"
+                className="inline-block px-8 py-3 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+              >
+                Tell me more
               </Link>
             </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              No credit card required. 14-day free trial.
-            </p>
-          </div>
-        </section>
-
-        {/* Channels Section */}
-        <section id="channels" className="py-20 bg-muted/50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">One Bot, Every Channel</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Deploy your AI chatbot anywhere your customers are. Same intelligence, consistent experience.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              <div className="flex flex-col items-center p-6 rounded-lg bg-background border">
-                <Globe className="h-10 w-10 text-primary mb-3" />
-                <span className="font-medium">Website</span>
-                <span className="text-sm text-muted-foreground">Widget</span>
+            <div className="relative h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-300 via-sky-300 to-emerald-200">
+              {/* Abstract 3D shapes */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-48 h-48 bg-gradient-to-br from-sky-400/50 to-indigo-400/50 rounded-[30%_70%_70%_30%/30%_30%_70%_70%] animate-pulse" />
               </div>
-              <div className="flex flex-col items-center p-6 rounded-lg bg-background border">
-                <Phone className="h-10 w-10 text-green-500 mb-3" />
-                <span className="font-medium">SMS</span>
-                <span className="text-sm text-muted-foreground">Twilio</span>
-              </div>
-              <div className="flex flex-col items-center p-6 rounded-lg bg-background border">
-                <MessageSquare className="h-10 w-10 text-green-600 mb-3" />
-                <span className="font-medium">WhatsApp</span>
-                <span className="text-sm text-muted-foreground">Business API</span>
-              </div>
-              <div className="flex flex-col items-center p-6 rounded-lg bg-background border">
-                <MessageSquare className="h-10 w-10 text-blue-600 mb-3" />
-                <span className="font-medium">Messenger</span>
-                <span className="text-sm text-muted-foreground">Meta</span>
-              </div>
+              <div className="absolute top-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-emerald-300/60 to-teal-400/60 rounded-full" />
+              <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-rose-300/50 to-orange-300/50 rounded-[60%_40%_30%_70%/60%_30%_70%_40%]" />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Features Section */}
-        <section id="features" className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Everything You Need</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Powerful features to capture, qualify, and convert leads on autopilot.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card>
-                <CardHeader>
-                  <Zap className="h-10 w-10 text-primary mb-2" />
-                  <CardTitle>Instant Responses</CardTitle>
-                  <CardDescription>
-                    AI-powered responses in under 2 seconds. Never miss a lead, even at 3am.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <BarChart3 className="h-10 w-10 text-primary mb-2" />
-                  <CardTitle>Lead Qualification</CardTitle>
-                  <CardDescription>
-                    Automatically score and qualify leads based on conversation context.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Clock className="h-10 w-10 text-primary mb-2" />
-                  <CardTitle>Appointment Booking</CardTitle>
-                  <CardDescription>
-                    Integrate with Calendly, Cal.com, or Google Calendar. Book meetings automatically.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
+      {/* Gold Standard Service Section */}
+      <section id="features" className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-16">
+            Gold standard service
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-24">
+            {[
+              { title: 'Efficient', subtitle: 'Streamlined to your specifications' },
+              { title: 'Effective', subtitle: 'Tailored to your goals' },
+              { title: 'Exceptional', subtitle: 'Committed to your success' },
+            ].map((item, index) => (
+              <div key={index} className="bg-gray-50 rounded-2xl p-8 text-center">
+                <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
+                {/* 3D Icon placeholder */}
+                <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-sky-200 to-indigo-300 opacity-80" />
+                <p className="text-gray-600">{item.subtitle}</p>
+              </div>
+            ))}
           </div>
-        </section>
 
-        {/* Pricing Section */}
-        <section id="pricing" className="py-20 bg-muted/50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Start free, scale as you grow. No hidden fees.
+          {/* Results Section */}
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h3 className="text-5xl font-bold tracking-tight leading-tight mb-6">
+                Results in<br />minutes
+              </h3>
+              <p className="text-lg text-gray-600">
+                Our platform does the heavy lifting, so you can do the heavy thinking.
+                Automate execution, but stay in full control of strategy.
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Starter Plan */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Starter</CardTitle>
-                  <CardDescription>For small businesses getting started</CardDescription>
-                  <div className="mt-4">
-                    <span className="text-4xl font-bold">$99</span>
-                    <span className="text-muted-foreground">/month</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>1 chatbot</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>Website widget</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>1,000 messages/month</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>Basic analytics</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full mt-6" variant="outline">
-                    Start Free Trial
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Pro Plan */}
-              <Card className="border-primary relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground text-sm font-medium px-3 py-1 rounded-full">
-                    Most Popular
-                  </span>
+            <div className="bg-white rounded-2xl p-8 shadow-sm border">
+              {/* Simple Chart */}
+              <div className="flex items-center gap-4 mb-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-orange-400" />
+                  <span>With LeadChat Pro</span>
                 </div>
-                <CardHeader>
-                  <CardTitle>Pro</CardTitle>
-                  <CardDescription>For growing businesses</CardDescription>
-                  <div className="mt-4">
-                    <span className="text-4xl font-bold">$249</span>
-                    <span className="text-muted-foreground">/month</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-sky-400" />
+                  <span>With LeadChat Basic</span>
+                </div>
+              </div>
+              <div className="flex items-end justify-between h-48 gap-4">
+                {['Q1', 'Q2', 'Q3', 'Q4'].map((quarter, i) => (
+                  <div key={quarter} className="flex-1 flex flex-col items-center gap-2">
+                    <div className="w-full flex gap-1 items-end h-32">
+                      <div
+                        className="flex-1 bg-orange-400 rounded-t"
+                        style={{ height: `${40 + i * 20}%` }}
+                      />
+                      <div
+                        className="flex-1 bg-sky-400 rounded-t"
+                        style={{ height: `${30 + i * 15}%` }}
+                      />
+                    </div>
+                    <span className="text-sm text-gray-500">{quarter}</span>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>3 chatbots</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>All channels (Web, SMS, WhatsApp)</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>5,000 messages/month</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>Advanced analytics</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>CRM integrations</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full mt-6">
-                    Start Free Trial
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Enterprise Plan */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Enterprise</CardTitle>
-                  <CardDescription>For large teams and agencies</CardDescription>
-                  <div className="mt-4">
-                    <span className="text-4xl font-bold">$499</span>
-                    <span className="text-muted-foreground">/month</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>Unlimited chatbots</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>All channels + Messenger</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>Unlimited messages</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>White-label option</span>
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="h-4 w-4 text-primary mr-2" />
-                      <span>Priority support</span>
-                    </li>
-                  </ul>
-                  <Button className="w-full mt-6" variant="outline">
-                    Contact Sales
-                  </Button>
-                </CardContent>
-              </Card>
+                ))}
+              </div>
+              <p className="text-center text-sm text-gray-500 mt-4">Lead conversion rates</p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Capture More Leads?</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-              Join hundreds of businesses using LeadChat to automate conversations and grow revenue.
-            </p>
-            <Link href="/signup">
-              <Button size="lg">Start Your Free Trial</Button>
+      {/* Pricing Section */}
+      <section id="pricing" className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
+              Service<br />packages
+            </h2>
+            <div className="space-y-4">
+              {[
+                { name: 'Basic Package', price: '$99', features: ['1 chatbot', 'Website widget only', '1,000 messages/month'] },
+                { name: 'Full Package', price: '$249', features: ['3 chatbots', 'All channels', '5,000 messages/month'] },
+                { name: 'Enterprise Deal', price: '$499', features: ['Unlimited chatbots', 'White-label option', 'Priority support'] },
+              ].map((plan) => (
+                <div key={plan.name} className="bg-gray-50 rounded-2xl p-6 flex justify-between items-start">
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">{plan.name}</h3>
+                    <ul className="space-y-1">
+                      {plan.features.map((feature) => (
+                        <li key={feature} className="text-sm text-gray-600 flex items-center gap-2">
+                          <span className="w-1 h-1 bg-gray-400 rounded-full" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <span className="text-xl font-semibold">{plan.price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-16">
+            Why teams choose us
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: 'This platform completely changed the way I work.',
+                name: 'Elina Mudiraj',
+                role: 'Marketing executive',
+              },
+              {
+                quote: 'The platform does the work. It syncs everything to my files.',
+                name: 'Talia Gorski',
+                role: 'Solopreneur',
+              },
+              {
+                quote: "Our team's close rate went up within the first month.",
+                name: 'Jarrold Müller',
+                role: 'Startup CEO',
+              },
+            ].map((testimonial, index) => (
+              <div key={index} className="bg-gray-50 rounded-2xl p-8">
+                <p className="text-lg mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                <div>
+                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section with Gradient */}
+      <section className="relative py-32">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-rose-50 to-sky-100" />
+
+        {/* 3D Shape Decorations */}
+        <div className="absolute bottom-0 right-0 w-96 h-96 opacity-60">
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-gradient-to-br from-sky-200 to-indigo-200 rounded-[60%_40%_30%_70%/60%_30%_70%_40%] blur-sm" />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
+              Ready to change<br />the way you work?
+            </h2>
+            <Link
+              href="/signup"
+              className="px-8 py-3 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition whitespace-nowrap"
+            >
+              Sign me up
             </Link>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* See It In Action Section */}
+      <section className="py-16 bg-white border-t">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <h3 className="text-4xl font-bold tracking-tight">See it in action</h3>
+            <div className="flex gap-4">
+              <Link
+                href="#features"
+                className="px-6 py-2.5 border-2 border-black text-sm font-medium rounded-full hover:bg-gray-100 transition"
+              >
+                Explore our services
+              </Link>
+              <Link
+                href="/signup"
+                className="px-6 py-2.5 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+              >
+                Sign me up
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className="border-t py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <MessageSquare className="h-6 w-6 text-primary" />
-              <span className="font-bold">LeadChat</span>
+      <footer className="py-16 bg-gradient-to-br from-orange-50 via-rose-50 to-sky-50">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-12">
+            <div>
+              <h4 className="text-2xl font-bold tracking-tight mb-4">LEADCHAT</h4>
             </div>
-            <div className="flex space-x-6 text-sm text-muted-foreground">
-              <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
-              <Link href="/terms" className="hover:text-foreground">Terms</Link>
-              <Link href="mailto:support@leadchat.ai" className="hover:text-foreground">Support</Link>
+            <div>
+              <h5 className="font-semibold mb-4">Address</h5>
+              <p className="text-sm text-gray-600">
+                123 Anywhere St.<br />
+                Any City, State<br />
+                Any Country<br />
+                (123) 456 7890
+              </p>
             </div>
-            <p className="text-sm text-muted-foreground mt-4 md:mt-0">
-              &copy; {new Date().getFullYear()} LeadChat. All rights reserved.
+            <div>
+              <h5 className="font-semibold mb-4">Social media</h5>
+              <div className="space-y-2 text-sm text-gray-600">
+                <p>Facebook</p>
+                <p>Instagram</p>
+                <p>TikTok</p>
+              </div>
+            </div>
+            <div>
+              <h5 className="font-semibold mb-4">Email us</h5>
+              <p className="text-sm text-gray-600">hello@leadchat.ai</p>
+            </div>
+          </div>
+          <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-600">
+              © {new Date().getFullYear()} LeadChat. All rights reserved.
             </p>
+            <div className="flex gap-6 text-sm text-gray-600">
+              <Link href="/privacy" className="hover:text-gray-900">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-gray-900">Terms of Service</Link>
+            </div>
           </div>
         </div>
       </footer>

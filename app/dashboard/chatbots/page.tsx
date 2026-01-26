@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Plus, MessageSquare, MoreVertical, Globe, Phone, Settings, BarChart3 } from 'lucide-react'
+import { Plus, MessageSquare, MoreVertical, Globe, Phone, Settings, BarChart3, AlertCircle } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,39 +17,23 @@ import {
 interface Chatbot {
   id: string
   name: string
-  status: 'active' | 'inactive' | 'draft'
+  status: 'ACTIVE' | 'INACTIVE' | 'DRAFT'
   channels: string[]
   messagesThisMonth: number
   leadsThisMonth: number
   createdAt: string
 }
 
-// Mock data - will be replaced with API call
-const mockChatbots: Chatbot[] = [
-  {
-    id: '1',
-    name: 'Website Support Bot',
-    status: 'active',
-    channels: ['website'],
-    messagesThisMonth: 1247,
-    leadsThisMonth: 34,
-    createdAt: '2024-01-15',
-  },
-  {
-    id: '2',
-    name: 'SMS Lead Capture',
-    status: 'active',
-    channels: ['sms', 'whatsapp'],
-    messagesThisMonth: 856,
-    leadsThisMonth: 28,
-    createdAt: '2024-01-20',
-  },
-]
+const statusColors: Record<string, string> = {
+  ACTIVE: 'bg-green-100 text-green-800',
+  INACTIVE: 'bg-gray-100 text-gray-800',
+  DRAFT: 'bg-yellow-100 text-yellow-800',
+}
 
-const statusColors = {
-  active: 'bg-green-100 text-green-800',
-  inactive: 'bg-gray-100 text-gray-800',
-  draft: 'bg-yellow-100 text-yellow-800',
+const statusLabels: Record<string, string> = {
+  ACTIVE: 'active',
+  INACTIVE: 'inactive',
+  DRAFT: 'draft',
 }
 
 const channelIcons: Record<string, React.ReactNode> = {
@@ -62,19 +46,52 @@ const channelIcons: Record<string, React.ReactNode> = {
 export default function ChatbotsPage() {
   const [chatbots, setChatbots] = useState<Chatbot[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setChatbots(mockChatbots)
-      setLoading(false)
-    }, 500)
+    async function fetchChatbots() {
+      try {
+        const res = await fetch('/api/chatbots')
+        if (!res.ok) {
+          throw new Error('Failed to fetch chatbots')
+        }
+        const data = await res.json()
+        setChatbots(data.chatbots || [])
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load chatbots')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchChatbots()
   }, [])
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this chatbot?')) return
+
+    try {
+      const res = await fetch(`/api/chatbots/${id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('Failed to delete')
+      setChatbots(chatbots.filter(bot => bot.id !== id))
+    } catch {
+      alert('Failed to delete chatbot')
+    }
+  }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 gap-4">
+        <AlertCircle className="h-12 w-12 text-destructive" />
+        <p className="text-destructive">{error}</p>
+        <Button onClick={() => window.location.reload()}>Retry</Button>
       </div>
     )
   }
@@ -125,8 +142,8 @@ export default function ChatbotsPage() {
                     <div>
                       <CardTitle className="text-lg">{bot.name}</CardTitle>
                       <div className="flex items-center gap-2 mt-1">
-                        <Badge className={statusColors[bot.status]} variant="secondary">
-                          {bot.status}
+                        <Badge className={statusColors[bot.status] || statusColors.DRAFT} variant="secondary">
+                          {statusLabels[bot.status] || 'draft'}
                         </Badge>
                       </div>
                     </div>
@@ -151,7 +168,10 @@ export default function ChatbotsPage() {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="text-destructive">
+                      <DropdownMenuItem
+                        className="text-destructive"
+                        onClick={() => handleDelete(bot.id)}
+                      >
                         Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -163,13 +183,13 @@ export default function ChatbotsPage() {
                   {/* Channels */}
                   <div>
                     <p className="text-sm text-muted-foreground mb-2">Channels</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       {bot.channels.map((channel) => (
                         <div
                           key={channel}
                           className="flex items-center gap-1 px-2 py-1 bg-muted rounded-md text-sm"
                         >
-                          {channelIcons[channel]}
+                          {channelIcons[channel] || <Globe className="h-4 w-4" />}
                           <span className="capitalize">{channel}</span>
                         </div>
                       ))}

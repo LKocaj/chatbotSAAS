@@ -1,12 +1,64 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { prisma } from '@/lib/db'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Bot, MessageSquare, Users, TrendingUp, Plus } from 'lucide-react'
+import { Bot, MessageSquare, Users, TrendingUp, Plus, Check } from 'lucide-react'
 import Link from 'next/link'
+
+async function getStats(userId: string) {
+  const membership = await prisma.organizationMember.findFirst({
+    where: { userId },
+    include: { organization: true },
+  })
+
+  if (!membership) {
+    return {
+      totalChatbots: 0,
+      totalConversations: 0,
+      totalLeads: 0,
+      conversionRate: 0,
+      chatbots: [],
+    }
+  }
+
+  const chatbots = await prisma.chatbot.findMany({
+    where: { organizationId: membership.organizationId },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  const totalChatbots = chatbots.length
+  const totalConversations = chatbots.reduce(
+    (sum, bot) => sum + bot.messagesThisMonth,
+    0
+  )
+  const totalLeads = chatbots.reduce(
+    (sum, bot) => sum + bot.leadsThisMonth,
+    0
+  )
+
+  const conversionRate =
+    totalConversations > 0
+      ? Math.round((totalLeads / totalConversations) * 100)
+      : 0
+
+  return {
+    totalChatbots,
+    totalConversations,
+    totalLeads,
+    conversionRate,
+    chatbots: chatbots.slice(0, 1), // Get first chatbot for quick actions
+  }
+}
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
+  const stats = session?.user?.id
+    ? await getStats(session.user.id)
+    : { totalChatbots: 0, totalConversations: 0, totalLeads: 0, conversionRate: 0, chatbots: [] }
+
+  const hasFirstChatbot = stats.totalChatbots > 0
+  const firstChatbot = stats.chatbots[0]
 
   return (
     <div className="space-y-8">
@@ -34,9 +86,9 @@ export default async function DashboardPage() {
             <Bot className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
+            <div className="text-2xl font-bold">{stats.totalChatbots}</div>
             <p className="text-xs text-muted-foreground">
-              Create your first chatbot
+              {stats.totalChatbots === 0 ? 'Create your first chatbot' : 'Active chatbots'}
             </p>
           </CardContent>
         </Card>
@@ -46,7 +98,7 @@ export default async function DashboardPage() {
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
+            <div className="text-2xl font-bold">{stats.totalConversations.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               This month
             </p>
@@ -58,7 +110,7 @@ export default async function DashboardPage() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
+            <div className="text-2xl font-bold">{stats.totalLeads}</div>
             <p className="text-xs text-muted-foreground">
               This month
             </p>
@@ -70,7 +122,7 @@ export default async function DashboardPage() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0%</div>
+            <div className="text-2xl font-bold">{stats.conversionRate}%</div>
             <p className="text-xs text-muted-foreground">
               Lead to conversation
             </p>
@@ -90,21 +142,33 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-medium">
-                  1
+                <div className={`flex h-8 w-8 items-center justify-center rounded-full font-medium ${
+                  hasFirstChatbot
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-primary/10 text-primary'
+                }`}>
+                  {hasFirstChatbot ? <Check className="h-4 w-4" /> : '1'}
                 </div>
                 <div className="flex-1">
                   <p className="font-medium">Create your first chatbot</p>
                   <p className="text-sm text-muted-foreground">
-                    Set up a chatbot for your website
+                    {hasFirstChatbot
+                      ? `"${firstChatbot?.name}" is ready`
+                      : 'Set up a chatbot for your website'}
                   </p>
                 </div>
                 <Link href="/dashboard/chatbots/new">
-                  <Button size="sm">Create</Button>
+                  <Button size="sm" variant={hasFirstChatbot ? 'outline' : 'default'}>
+                    {hasFirstChatbot ? 'Add Another' : 'Create'}
+                  </Button>
                 </Link>
               </div>
               <div className="flex items-center gap-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-muted-foreground font-medium">
+                <div className={`flex h-8 w-8 items-center justify-center rounded-full font-medium ${
+                  hasFirstChatbot
+                    ? 'bg-primary/10 text-primary'
+                    : 'bg-muted text-muted-foreground'
+                }`}>
                   2
                 </div>
                 <div className="flex-1">
@@ -113,12 +177,24 @@ export default async function DashboardPage() {
                     Add SMS, WhatsApp, or Messenger
                   </p>
                 </div>
-                <Button size="sm" variant="outline" disabled>
-                  Configure
-                </Button>
+                {hasFirstChatbot && firstChatbot ? (
+                  <Link href={`/dashboard/chatbots/${firstChatbot.id}`}>
+                    <Button size="sm" variant="outline">
+                      Configure
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button size="sm" variant="outline" disabled>
+                    Configure
+                  </Button>
+                )}
               </div>
               <div className="flex items-center gap-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-muted-foreground font-medium">
+                <div className={`flex h-8 w-8 items-center justify-center rounded-full font-medium ${
+                  hasFirstChatbot
+                    ? 'bg-primary/10 text-primary'
+                    : 'bg-muted text-muted-foreground'
+                }`}>
                   3
                 </div>
                 <div className="flex-1">
@@ -127,9 +203,17 @@ export default async function DashboardPage() {
                     Copy the embed code to your site
                   </p>
                 </div>
-                <Button size="sm" variant="outline" disabled>
-                  Get Code
-                </Button>
+                {hasFirstChatbot && firstChatbot ? (
+                  <Link href={`/dashboard/chatbots/${firstChatbot.id}#embed`}>
+                    <Button size="sm" variant="outline">
+                      Get Code
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button size="sm" variant="outline" disabled>
+                    Get Code
+                  </Button>
+                )}
               </div>
             </div>
           </CardContent>
@@ -143,13 +227,27 @@ export default async function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col items-center justify-center py-8 text-center">
-              <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
-              <p className="text-muted-foreground">No activity yet</p>
-              <p className="text-sm text-muted-foreground">
-                Conversations will appear here once you deploy a chatbot
-              </p>
-            </div>
+            {stats.totalConversations > 0 ? (
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  You've had {stats.totalConversations.toLocaleString()} conversations
+                  and captured {stats.totalLeads} leads this month.
+                </p>
+                <Link href="/dashboard/conversations">
+                  <Button variant="outline" className="w-full">
+                    View Conversations
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-8 text-center">
+                <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
+                <p className="text-muted-foreground">No activity yet</p>
+                <p className="text-sm text-muted-foreground">
+                  Conversations will appear here once you deploy a chatbot
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
