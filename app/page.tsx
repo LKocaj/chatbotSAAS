@@ -1,283 +1,385 @@
 import Link from 'next/link'
-import { Check } from 'lucide-react'
+import { Check, ArrowRight } from 'lucide-react'
+import { FeaturesSection } from '@/components/landing/FeaturesSection'
+
+function Stars() {
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {/* Static stars layer 1 - small */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(1px 1px at 20px 30px, white, transparent),
+            radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 90px 40px, white, transparent),
+            radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 160px 120px, white, transparent),
+            radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 220px 150px, white, transparent),
+            radial-gradient(1px 1px at 270px 90px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 300px 200px, white, transparent),
+            radial-gradient(1px 1px at 350px 60px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 400px 130px, white, transparent),
+            radial-gradient(1px 1px at 450px 30px, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 500px 180px, white, transparent),
+            radial-gradient(1px 1px at 550px 100px, rgba(255,255,255,0.5), transparent)
+          `,
+          backgroundSize: '600px 250px',
+        }}
+      />
+      {/* Static stars layer 2 - medium */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(1.5px 1.5px at 100px 200px, white, transparent),
+            radial-gradient(1.5px 1.5px at 250px 50px, rgba(255,255,255,0.9), transparent),
+            radial-gradient(1.5px 1.5px at 400px 150px, white, transparent),
+            radial-gradient(1.5px 1.5px at 550px 250px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1.5px 1.5px at 700px 100px, white, transparent),
+            radial-gradient(1.5px 1.5px at 150px 350px, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1.5px 1.5px at 350px 300px, white, transparent),
+            radial-gradient(1.5px 1.5px at 600px 50px, rgba(255,255,255,0.9), transparent)
+          `,
+          backgroundSize: '800px 400px',
+        }}
+      />
+      {/* Twinkling stars */}
+      <div
+        className="absolute inset-0 animate-pulse"
+        style={{
+          background: `
+            radial-gradient(2px 2px at 75px 100px, #00ffd0, transparent),
+            radial-gradient(2px 2px at 300px 300px, #ff99b1, transparent),
+            radial-gradient(2px 2px at 500px 80px, #ffeb99, transparent),
+            radial-gradient(2px 2px at 180px 400px, #00d4ff, transparent),
+            radial-gradient(2px 2px at 650px 200px, white, transparent),
+            radial-gradient(2px 2px at 420px 450px, #00ffd0, transparent)
+          `,
+          backgroundSize: '800px 550px',
+          animation: 'twinkle 4s ease-in-out infinite',
+        }}
+      />
+      {/* Shooting star (optional subtle touch) */}
+      <div
+        className="absolute w-[100px] h-[1px] bg-gradient-to-r from-white to-transparent opacity-0"
+        style={{
+          top: '15%',
+          left: '20%',
+          transform: 'rotate(-45deg)',
+          animation: 'shootingStar 8s ease-in-out infinite',
+        }}
+      />
+    </div>
+  )
+}
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden">
-      {/* Hero Section with Gradient */}
-      <section className="relative min-h-screen">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-rose-50 to-sky-100" />
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-[#0a0a12] via-[#050510] to-[#030308] text-white overflow-x-hidden">
+      {/* Starry background */}
+      <Stars />
 
-        {/* 3D Shape Decoration */}
-        <div className="absolute top-20 right-0 w-1/2 h-[500px] opacity-80">
-          <div className="relative w-full h-full">
-            <div className="absolute top-10 right-20 w-64 h-64 bg-gradient-to-br from-sky-200 to-indigo-300 rounded-[40%_60%_70%_30%/60%_30%_70%_40%] blur-sm" />
-            <div className="absolute top-32 right-40 w-48 h-48 bg-gradient-to-br from-emerald-200 to-teal-300 rounded-[50%_50%_40%_60%/40%_60%_50%_50%] blur-sm" />
-            <div className="absolute top-20 right-60 w-32 h-32 bg-gradient-to-br from-orange-200 to-rose-300 rounded-full blur-sm" />
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <header className="relative z-10">
-          <div className="container mx-auto px-6 py-6 flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold tracking-tight">
-              LEADCHAT
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 bg-[#0a0a12]/80 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+          <Link href="/" className="text-xl font-semibold tracking-tight">
+            LeadChat
+          </Link>
+          <nav className="hidden md:flex items-center gap-8">
+            <Link href="#features" className="text-sm text-white/60 hover:text-white transition">
+              Features
             </Link>
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link href="#features" className="text-sm font-medium hover:opacity-70 transition">
-                Features
-              </Link>
-              <Link href="#pricing" className="text-sm font-medium hover:opacity-70 transition">
-                Pricing
-              </Link>
-              <Link href="#testimonials" className="text-sm font-medium hover:opacity-70 transition">
-                Reviews
-              </Link>
-            </nav>
+            <Link href="#pricing" className="text-sm text-white/60 hover:text-white transition">
+              Pricing
+            </Link>
+            <Link href="#faq" className="text-sm text-white/60 hover:text-white transition">
+              FAQ
+            </Link>
+          </nav>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="px-4 py-2 text-sm text-white/70 hover:text-white transition"
+            >
+              Log in
+            </Link>
             <Link
               href="/signup"
-              className="px-6 py-2.5 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+              className="px-5 py-2.5 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition"
             >
-              Sign me up
+              Get Started
             </Link>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 pt-20 pb-32">
-          <div className="max-w-xl">
-            <h1 className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
-              Simplify<br />your work
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        {/* Nebula glows - softer, cozy colors */}
+        <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-[#4a3f8a]/15 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-40 right-1/4 w-[500px] h-[500px] bg-[#2a5298]/10 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/2 w-[400px] h-[400px] bg-[#614385]/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
+              <span className="w-2 h-2 rounded-full bg-[#00ffd0] animate-pulse" />
+              <span className="text-sm text-white/70">Omni-Channel AI Platform</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] mb-6">
+              Your AI team,{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffd0] via-[#00d4ff] to-[#00ffd0]">
+                everywhere at once
+              </span>
             </h1>
-            <p className="text-lg text-gray-600 mb-8">
-              AI-powered chatbots meet your business to deliver exceptional results.
+
+            {/* Subtitle */}
+            <p className="text-lg text-white/50 max-w-xl mx-auto mb-10 leading-relaxed">
+              Deploy intelligent chatbots across web, SMS, WhatsApp, and Messenger. Support customers, close sales, and automate workflows — all from one platform.
             </p>
-            <Link
-              href="/signup"
-              className="inline-block px-8 py-3 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
-            >
-              Sign me up
-            </Link>
-          </div>
-        </div>
 
-        {/* Subheadline */}
-        <div className="relative z-10 container mx-auto px-6 pb-8">
-          <p className="text-lg">Your all-in-one, AI-powered chatbot platform</p>
-        </div>
-      </section>
-
-      {/* At Your Fingertips Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight mb-6">
-                At your<br />fingertips
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Service has never been faster, better, or more attuned to your needs.
-              </p>
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/signup"
+                className="px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition flex items-center gap-2"
+              >
+                Start Free Trial
+                <ArrowRight className="w-4 h-4" />
+              </Link>
               <Link
                 href="#features"
-                className="inline-block px-8 py-3 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+                className="px-8 py-4 text-white/70 font-medium hover:text-white transition"
               >
-                Tell me more
+                Learn more
               </Link>
             </div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-300 via-sky-300 to-emerald-200">
-              {/* Abstract 3D shapes */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-48 h-48 bg-gradient-to-br from-sky-400/50 to-indigo-400/50 rounded-[30%_70%_70%_30%/30%_30%_70%_70%] animate-pulse" />
-              </div>
-              <div className="absolute top-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-emerald-300/60 to-teal-400/60 rounded-full" />
-              <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-rose-300/50 to-orange-300/50 rounded-[60%_40%_30%_70%/60%_30%_70%_40%]" />
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Gold Standard Service Section */}
-      <section id="features" className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-16">
-            Gold standard service
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-24">
+          {/* Stats Row */}
+          <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { title: 'Efficient', subtitle: 'Streamlined to your specifications' },
-              { title: 'Effective', subtitle: 'Tailored to your goals' },
-              { title: 'Exceptional', subtitle: 'Committed to your success' },
-            ].map((item, index) => (
-              <div key={index} className="bg-gray-50 rounded-2xl p-8 text-center">
-                <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
-                {/* 3D Icon placeholder */}
-                <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-sky-200 to-indigo-300 opacity-80" />
-                <p className="text-gray-600">{item.subtitle}</p>
+              { value: '500K+', label: 'Conversations handled', color: 'text-[#00ffd0]' },
+              { value: '4', label: 'Channels supported', color: 'text-[#ff99b1]' },
+              { value: '< 1s', label: 'Response time', color: 'text-[#ffeb99]' },
+              { value: '24/7', label: 'Always available', color: 'text-[#00d4ff]' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+                <p className={`text-3xl md:text-4xl font-semibold ${stat.color}`}>{stat.value}</p>
+                <p className="text-sm text-white/40 mt-2">{stat.label}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Results Section */}
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h3 className="text-5xl font-bold tracking-tight leading-tight mb-6">
-                Results in<br />minutes
-              </h3>
-              <p className="text-lg text-gray-600">
-                Our platform does the heavy lifting, so you can do the heavy thinking.
-                Automate execution, but stay in full control of strategy.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm border">
-              {/* Simple Chart */}
-              <div className="flex items-center gap-4 mb-6 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-orange-400" />
-                  <span>With LeadChat Pro</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-sky-400" />
-                  <span>With LeadChat Basic</span>
-                </div>
+      {/* Features Section */}
+      <FeaturesSection />
+
+      {/* How It Works */}
+      <section className="py-24 relative overflow-hidden">
+        {/* Background gradient - subtle purple glow */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#614385]/5 to-transparent pointer-events-none" />
+
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="text-[#ff99b1] text-sm font-medium uppercase tracking-wider mb-4">How It Works</p>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
+              Up and running in minutes
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                step: '01',
+                title: 'Connect',
+                description: 'Add the widget to your site or connect SMS, WhatsApp, and Messenger.',
+                color: '#00ffd0',
+              },
+              {
+                step: '02',
+                title: 'Train',
+                description: 'Upload your knowledge base — FAQs, product info, policies, and more.',
+                color: '#ff99b1',
+              },
+              {
+                step: '03',
+                title: 'Automate',
+                description: 'Let AI handle support, sales, and scheduling across every channel.',
+                color: '#ffeb99',
+              },
+            ].map((item) => (
+              <div key={item.step} className="relative">
+                <span
+                  className="text-6xl font-bold opacity-20"
+                  style={{ color: item.color }}
+                >
+                  {item.step}
+                </span>
+                <h3 className="text-xl font-medium mt-4 mb-2">{item.title}</h3>
+                <p className="text-white/40 leading-relaxed">{item.description}</p>
               </div>
-              <div className="flex items-end justify-between h-48 gap-4">
-                {['Q1', 'Q2', 'Q3', 'Q4'].map((quarter, i) => (
-                  <div key={quarter} className="flex-1 flex flex-col items-center gap-2">
-                    <div className="w-full flex gap-1 items-end h-32">
-                      <div
-                        className="flex-1 bg-orange-400 rounded-t"
-                        style={{ height: `${40 + i * 20}%` }}
-                      />
-                      <div
-                        className="flex-1 bg-sky-400 rounded-t"
-                        style={{ height: `${30 + i * 15}%` }}
-                      />
-                    </div>
-                    <span className="text-sm text-gray-500">{quarter}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-center text-sm text-gray-500 mt-4">Lead conversion rates</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-start">
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
-              Service<br />packages
+      <section id="pricing" className="py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="text-[#ffeb99] text-sm font-medium uppercase tracking-wider mb-4">Pricing</p>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
+              Simple, predictable pricing
             </h2>
-            <div className="space-y-4">
-              {[
-                { name: 'Basic Package', price: '$99', features: ['1 chatbot', 'Website widget only', '1,000 messages/month'] },
-                { name: 'Full Package', price: '$249', features: ['3 chatbots', 'All channels', '5,000 messages/month'] },
-                { name: 'Enterprise Deal', price: '$499', features: ['Unlimited chatbots', 'White-label option', 'Priority support'] },
-              ].map((plan) => (
-                <div key={plan.name} className="bg-gray-50 rounded-2xl p-6 flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">{plan.name}</h3>
-                    <ul className="space-y-1">
-                      {plan.features.map((feature) => (
-                        <li key={feature} className="text-sm text-gray-600 flex items-center gap-2">
-                          <span className="w-1 h-1 bg-gray-400 rounded-full" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <span className="text-xl font-semibold">{plan.price}</span>
-                </div>
-              ))}
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-16">
-            Why teams choose us
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               {
-                quote: 'This platform completely changed the way I work.',
-                name: 'Elina Mudiraj',
-                role: 'Marketing executive',
+                name: 'Starter',
+                price: '$99',
+                description: 'For small businesses',
+                features: ['1 chatbot', 'Website widget', '1,000 messages/mo', 'Email support'],
+                accent: '#00ffd0',
+                popular: false,
               },
               {
-                quote: 'The platform does the work. It syncs everything to my files.',
-                name: 'Talia Gorski',
-                role: 'Solopreneur',
+                name: 'Professional',
+                price: '$249',
+                description: 'For growing teams',
+                features: ['3 chatbots', 'All channels', '5,000 messages/mo', 'Priority support', 'Analytics'],
+                accent: '#ff99b1',
+                popular: true,
               },
               {
-                quote: "Our team's close rate went up within the first month.",
-                name: 'Jarrold Müller',
-                role: 'Startup CEO',
+                name: 'Enterprise',
+                price: '$499',
+                description: 'For organizations',
+                features: ['Unlimited chatbots', 'White-label', 'Unlimited messages', 'Dedicated support', 'Custom integrations'],
+                accent: '#ffeb99',
+                popular: false,
               },
-            ].map((testimonial, index) => (
-              <div key={index} className="bg-gray-50 rounded-2xl p-8">
-                <p className="text-lg mb-6 leading-relaxed">"{testimonial.quote}"</p>
-                <div>
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                className={`relative p-8 rounded-2xl border ${
+                  plan.popular
+                    ? 'bg-white/[0.03] border-white/10'
+                    : 'bg-white/[0.01] border-white/5'
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span
+                      className="px-3 py-1 text-xs font-medium rounded-full text-black"
+                      style={{ backgroundColor: plan.accent }}
+                    >
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-xl font-medium mb-1">{plan.name}</h3>
+                  <p className="text-white/40 text-sm">{plan.description}</p>
                 </div>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-semibold">{plan.price}</span>
+                  <span className="text-white/40">/month</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-3">
+                      <Check className="w-4 h-4" style={{ color: plan.accent }} />
+                      <span className="text-white/60 text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/signup"
+                  className={`block w-full py-3 text-center text-sm font-medium rounded-full transition ${
+                    plan.popular
+                      ? 'bg-white text-black hover:bg-white/90'
+                      : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
+                  }`}
+                >
+                  Get Started
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section with Gradient */}
-      <section className="relative py-32">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-rose-50 to-sky-100" />
-
-        {/* 3D Shape Decorations */}
-        <div className="absolute bottom-0 right-0 w-96 h-96 opacity-60">
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-gradient-to-br from-sky-200 to-indigo-200 rounded-[60%_40%_30%_70%/60%_30%_70%_40%] blur-sm" />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
-              Ready to change<br />the way you work?
+      {/* FAQ Section */}
+      <section id="faq" className="py-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="text-[#00d4ff] text-sm font-medium uppercase tracking-wider mb-4">FAQ</p>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
+              Common questions
             </h2>
-            <Link
-              href="/signup"
-              className="px-8 py-3 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition whitespace-nowrap"
-            >
-              Sign me up
-            </Link>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: 'How long does setup take?',
+                a: 'Most customers are up and running in under 30 minutes. Just add our widget code to your site and configure your chatbot.',
+              },
+              {
+                q: 'Can I customize the chatbot responses?',
+                a: 'Yes! You can train the AI on your specific products, services, FAQs, and brand voice. The bot learns from your knowledge base.',
+              },
+              {
+                q: 'What channels are supported?',
+                a: 'We support website chat widgets, SMS, WhatsApp Business, and Facebook Messenger — all managed from one dashboard.',
+              },
+              {
+                q: 'Is there a free trial?',
+                a: 'Yes, all plans include a 14-day free trial with full access to features. No credit card required.',
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="p-6 rounded-2xl bg-white/[0.02] border border-white/5"
+              >
+                <h3 className="font-medium mb-2">{item.q}</h3>
+                <p className="text-white/40 text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* See It In Action Section */}
-      <section className="py-16 bg-white border-t">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <h3 className="text-4xl font-bold tracking-tight">See it in action</h3>
-            <div className="flex gap-4">
-              <Link
-                href="#features"
-                className="px-6 py-2.5 border-2 border-black text-sm font-medium rounded-full hover:bg-gray-100 transition"
-              >
-                Explore our services
-              </Link>
+      {/* CTA Section */}
+      <section className="py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="relative rounded-3xl overflow-hidden">
+            {/* Gradient background - aurora-like */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#4a3f8a]/30 via-[#2a5298]/20 to-[#614385]/30" />
+            <div className="absolute inset-0 bg-[#0a0a12]/70" />
+
+            <div className="relative px-8 py-16 md:px-16 md:py-24 text-center">
+              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
+                Ready to transform your customer experience?
+              </h2>
+              <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
+                Join thousands of businesses using LeadChat to automate support, boost sales, and delight customers 24/7.
+              </p>
               <Link
                 href="/signup"
-                className="px-6 py-2.5 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition"
               >
-                Sign me up
+                Start Your Free Trial
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -285,41 +387,23 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 bg-gradient-to-br from-orange-50 via-rose-50 to-sky-50">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
-              <h4 className="text-2xl font-bold tracking-tight mb-4">LEADCHAT</h4>
-            </div>
-            <div>
-              <h5 className="font-semibold mb-4">Address</h5>
-              <p className="text-sm text-gray-600">
-                123 Anywhere St.<br />
-                Any City, State<br />
-                Any Country<br />
-                (123) 456 7890
-              </p>
-            </div>
-            <div>
-              <h5 className="font-semibold mb-4">Social media</h5>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>Facebook</p>
-                <p>Instagram</p>
-                <p>TikTok</p>
+      <footer className="py-12 border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-8">
+              <Link href="/" className="text-lg font-semibold">
+                LeadChat
+              </Link>
+              <div className="hidden md:flex items-center gap-6 text-sm text-white/40">
+                <Link href="#features" className="hover:text-white transition">Features</Link>
+                <Link href="#pricing" className="hover:text-white transition">Pricing</Link>
+                <Link href="#faq" className="hover:text-white transition">FAQ</Link>
               </div>
             </div>
-            <div>
-              <h5 className="font-semibold mb-4">Email us</h5>
-              <p className="text-sm text-gray-600">hello@leadchat.ai</p>
-            </div>
-          </div>
-          <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} LeadChat. All rights reserved.
-            </p>
-            <div className="flex gap-6 text-sm text-gray-600">
-              <Link href="/privacy" className="hover:text-gray-900">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-gray-900">Terms of Service</Link>
+            <div className="flex items-center gap-6 text-sm text-white/40">
+              <Link href="/privacy" className="hover:text-white transition">Privacy</Link>
+              <Link href="/terms" className="hover:text-white transition">Terms</Link>
+              <span>© {new Date().getFullYear()} LeadChat</span>
             </div>
           </div>
         </div>

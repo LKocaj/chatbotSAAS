@@ -57,3 +57,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Starry night animations */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes shootingStar {
+  0%, 90%, 100% {
+    opacity: 0;
+    transform: rotate(-45deg) translateX(0);
+  }
+  92% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+    transform: rotate(-45deg) translateX(300px);
+  }
+  96% {
+    opacity: 0;
+    transform: rotate(-45deg) translateX(300px);
+  }
+}
