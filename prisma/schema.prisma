@@ -99,10 +99,12 @@ model OrganizationMember {
 }
 
 model Chatbot {
-  id        String   @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      ChatbotStatus @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   // Link to existing backend tenant
   tenantId String? @unique
@@ -112,15 +114,25 @@ model Chatbot {
   primaryColor   String  @default("#3b82f6")
   position       String  @default("bottom-right")
 
-  // Channel status
-  websiteEnabled   Boolean @default(true)
-  smsEnabled       Boolean @default(false)
-  whatsappEnabled  Boolean @default(false)
-  messengerEnabled Boolean @default(false)
+  // Channels (stored as JSON array)
+  channels String[] @default(["website"])
+
+  // Knowledge base (stored as JSON)
+  knowledgeBase Json?
+
+  // Stats (cached from backend)
+  messagesThisMonth Int @default(0)
+  leadsThisMonth    Int @default(0)
 
   // Organization
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+enum ChatbotStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
 }
 
 model ApiKey {
