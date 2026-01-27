@@ -86,7 +86,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 bg-[#0a0a12]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="text-xl font-semibold tracking-tight">
-            LeadChat
+            OnCall Chat
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="#features" className="text-sm text-white/60 hover:text-white transition">
@@ -128,7 +128,7 @@ export default function LandingPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
               <span className="w-2 h-2 rounded-full bg-[#00ffd0] animate-pulse" />
-              <span className="text-sm text-white/70">Omni-Channel AI Platform</span>
+              <span className="text-sm text-white/70">AI Chat That Converts</span>
             </div>
 
             {/* Headline */}
@@ -181,6 +181,84 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <FeaturesSection />
+
+      {/* Why Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2a5298]/5 to-transparent pointer-events-none" />
+
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="text-[#00d4ff] text-sm font-medium uppercase tracking-wider mb-4">Why OnCall Chat</p>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
+              The numbers speak for themselves
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                stat: '67%',
+                label: 'of consumers prefer chatbots for quick answers',
+                color: '#00ffd0',
+              },
+              {
+                stat: '30%',
+                label: 'reduction in customer service costs',
+                color: '#ff99b1',
+              },
+              {
+                stat: '3x',
+                label: 'faster response times vs. human-only support',
+                color: '#ffeb99',
+              },
+              {
+                stat: '24/7',
+                label: 'availability without adding headcount',
+                color: '#00d4ff',
+              },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 text-center"
+              >
+                <p
+                  className="text-4xl md:text-5xl font-bold mb-3"
+                  style={{ color: item.color }}
+                >
+                  {item.stat}
+                </p>
+                <p className="text-white/50 text-sm leading-relaxed">{item.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-16 grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: '💰',
+                title: 'Increase Revenue',
+                description: 'Capture leads 24/7, qualify prospects instantly, and book appointments while you sleep.',
+              },
+              {
+                icon: '⚡',
+                title: 'Boost Productivity',
+                description: 'Free your team from repetitive questions. Let AI handle the FAQs so humans can focus on high-value work.',
+              },
+              {
+                icon: '😊',
+                title: 'Happier Customers',
+                description: 'Instant responses, no hold times, consistent answers. Customers get help when they need it.',
+              },
+            ].map((item) => (
+              <div key={item.title} className="text-center">
+                <span className="text-4xl mb-4 block">{item.icon}</span>
+                <h3 className="text-xl font-medium mb-2">{item.title}</h3>
+                <p className="text-white/40 leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* How It Works */}
       <section className="py-24 relative overflow-hidden">
@@ -372,7 +450,7 @@ export default function LandingPage() {
                 Ready to transform your customer experience?
               </h2>
               <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
-                Join thousands of businesses using LeadChat to automate support, boost sales, and delight customers 24/7.
+                Join thousands of businesses using OnCall Chat to automate support, boost sales, and delight customers 24/7.
               </p>
               <Link
                 href="/signup"
@@ -392,7 +470,7 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-8">
               <Link href="/" className="text-lg font-semibold">
-                LeadChat
+                OnCall Chat
               </Link>
               <div className="hidden md:flex items-center gap-6 text-sm text-white/40">
                 <Link href="#features" className="hover:text-white transition">Features</Link>
@@ -403,7 +481,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-6 text-sm text-white/40">
               <Link href="/privacy" className="hover:text-white transition">Privacy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
-              <span>© {new Date().getFullYear()} LeadChat</span>
+              <span>© {new Date().getFullYear()} OnCall Chat</span>
             </div>
           </div>
         </div>

@@ -4,11 +4,44 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { MessageSquare } from 'lucide-react'
+import Image from 'next/image'
+
+function Stars() {
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(1px 1px at 20px 30px, white, transparent),
+            radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 90px 40px, white, transparent),
+            radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 160px 120px, white, transparent),
+            radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 220px 150px, white, transparent),
+            radial-gradient(1px 1px at 270px 90px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 300px 200px, white, transparent)
+          `,
+          backgroundSize: '400px 250px',
+        }}
+      />
+      <div
+        className="absolute inset-0 animate-pulse"
+        style={{
+          background: `
+            radial-gradient(2px 2px at 75px 100px, #00ffd0, transparent),
+            radial-gradient(2px 2px at 300px 300px, #ff99b1, transparent),
+            radial-gradient(2px 2px at 500px 80px, #ffeb99, transparent)
+          `,
+          backgroundSize: '600px 400px',
+          animation: 'twinkle 4s ease-in-out infinite',
+        }}
+      />
+    </div>
+  )
+}
 
 export default function LoginPage() {
   const router = useRouter()
@@ -47,73 +80,92 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/50 px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
-            <MessageSquare className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold">LeadChat</span>
-          </Link>
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>
-            Sign in to your account to continue
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0a0a12] via-[#050510] to-[#030308] px-4">
+      <Stars />
+
+      {/* Nebula glows */}
+      <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-[#4a3f8a]/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-20 right-1/4 w-[300px] h-[300px] bg-[#2a5298]/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="relative w-full max-w-md">
+        <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm">
+          <div className="text-center mb-8">
+            <Link href="/" className="inline-flex items-center justify-center gap-3 mb-6">
+              <Image src="/logo.png" alt="OnCall Chat" width={40} height={40} className="rounded-lg" />
+              <span className="text-xl font-semibold text-white">OnCall Chat</span>
+            </Link>
+            <h1 className="text-2xl font-semibold text-white mb-2">Welcome back</h1>
+            <p className="text-white/50 text-sm">
+              Sign in to your account to continue
+            </p>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md">
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm p-3 rounded-lg">
                 {error}
               </div>
             )}
+
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
+              <label htmlFor="email" className="block text-sm font-medium text-white/70">
+                Email
+              </label>
+              <input
                 id="email"
                 type="email"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[#00ffd0]/50 focus:ring-1 focus:ring-[#00ffd0]/50 transition"
               />
             </div>
+
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+                <label htmlFor="password" className="block text-sm font-medium text-white/70">
+                  Password
+                </label>
+                <Link href="/forgot-password" className="text-sm text-[#00ffd0] hover:underline">
                   Forgot password?
                 </Link>
               </div>
-              <Input
+              <input
                 id="password"
                 type="password"
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[#00ffd0]/50 focus:ring-1 focus:ring-[#00ffd0]/50 transition"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 px-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               {loading ? 'Signing in...' : 'Sign in'}
-            </Button>
+            </button>
           </form>
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t" />
+              <div className="w-full border-t border-white/10" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+              <span className="bg-[#0a0a12] px-3 text-white/40">Or continue with</span>
             </div>
           </div>
 
-          <Button
+          <button
             type="button"
-            variant="outline"
-            className="w-full"
             onClick={handleGoogleSignIn}
+            className="w-full py-3 px-4 bg-white/5 border border-white/10 text-white font-medium rounded-full hover:bg-white/10 transition flex items-center justify-center gap-2"
           >
-            <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+            <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                 fill="#4285F4"
@@ -132,16 +184,16 @@ export default function LoginPage() {
               />
             </svg>
             Continue with Google
-          </Button>
+          </button>
 
-          <p className="text-center text-sm text-muted-foreground mt-6">
+          <p className="text-center text-sm text-white/40 mt-6">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="text-primary hover:underline">
+            <Link href="/signup" className="text-[#00ffd0] hover:underline">
               Sign up
             </Link>
           </p>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

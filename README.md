@@ -1,6 +1,6 @@
-# LeadChat
+# OnCall Chat
 
-24/7 AI Chat That Books Appointments - Omnichannel Chatbot SaaS Platform
+AI Chat That Never Sleeps
 
 ## Features
 

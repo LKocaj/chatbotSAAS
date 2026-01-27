@@ -6,8 +6,16 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LeadChat - 24/7 AI Chat That Books Appointments',
-  description: 'Deploy AI chatbots across Website, SMS, WhatsApp, and Messenger. Capture leads and book appointments automatically.',
+  title: 'OnCall Chat - AI Chat That Never Sleeps',
+  description: 'Your always-on AI sales & support team. Deploy intelligent chatbots across Website, SMS, WhatsApp, and Messenger.',
+  icons: {
+    icon: [
+      { url: '/favicon_io/favicon.ico' },
+      { url: '/favicon_io/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon_io/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/favicon_io/apple-touch-icon.png',
+  },
 }
 
 export default function RootLayout({
