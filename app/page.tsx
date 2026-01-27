@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { Check, ArrowRight } from 'lucide-react'
 import { FeaturesSection } from '@/components/landing/FeaturesSection'
+import { FAQSection } from '@/components/landing/FAQSection'
+import { ChatWidget } from '@/components/landing/ChatWidget'
 
 function Stars() {
   return (
@@ -397,45 +399,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="text-[#00d4ff] text-sm font-medium uppercase tracking-wider mb-4">FAQ</p>
-            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
-              Common questions
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              {
-                q: 'How long does setup take?',
-                a: 'Most customers are up and running in under 30 minutes. Just add our widget code to your site and configure your chatbot.',
-              },
-              {
-                q: 'Can I customize the chatbot responses?',
-                a: 'Yes! You can train the AI on your specific products, services, FAQs, and brand voice. The bot learns from your knowledge base.',
-              },
-              {
-                q: 'What channels are supported?',
-                a: 'We support website chat widgets, SMS, WhatsApp Business, and Facebook Messenger — all managed from one dashboard.',
-              },
-              {
-                q: 'Is there a free trial?',
-                a: 'Yes, all plans include a 14-day free trial with full access to features. No credit card required.',
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="p-6 rounded-2xl bg-white/[0.02] border border-white/5"
-              >
-                <h3 className="font-medium mb-2">{item.q}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FAQSection />
 
       {/* CTA Section */}
       <section className="py-24">
@@ -486,6 +450,9 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Live Chat Widget Demo */}
+      <ChatWidget />
     </div>
   )
 }
