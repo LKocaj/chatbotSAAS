@@ -3,6 +3,26 @@ import { prisma } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
 
+async function notifySlack(name: string, email: string) {
+  const text = `🚀 New OnCall Chat signup: *${name}* (${email})`
+  const webhooks = [
+    process.env.SLACK_WEBHOOK_URL,
+    process.env.SLACK_LEADS_WEBHOOK_URL,
+  ].filter(Boolean) as string[]
+
+  for (const url of webhooks) {
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      })
+    } catch {
+      console.error('Slack notification failed for webhook')
+    }
+  }
+}
+
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
@@ -53,6 +73,9 @@ export async function POST(req: Request) {
         },
       },
     })
+
+    // Fire-and-forget — don't block signup on Slack
+    notifySlack(name, email)
 
     return NextResponse.json(
       { message: 'User created successfully' },
