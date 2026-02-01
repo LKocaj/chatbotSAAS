@@ -9,7 +9,9 @@ import {
   Inbox,
   BarChart3,
   Settings,
-  LogOut
+  LogOut,
+  BookOpen,
+  Plug,
 } from 'lucide-react'
 import { UserNav } from '@/components/dashboard/user-nav'
 
@@ -50,6 +52,12 @@ export default async function DashboardLayout({
             </NavItem>
             <NavItem href="/dashboard/analytics" icon={BarChart3}>
               Analytics
+            </NavItem>
+            <NavItem href="/dashboard/knowledge" icon={BookOpen}>
+              Knowledge Base
+            </NavItem>
+            <NavItem href="/dashboard/integrations" icon={Plug}>
+              Integrations
             </NavItem>
             <NavItem href="/dashboard/settings" icon={Settings}>
               Settings

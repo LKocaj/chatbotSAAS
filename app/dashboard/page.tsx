@@ -174,7 +174,7 @@ export default async function DashboardPage() {
                 <div className="flex-1">
                   <p className="font-medium">Configure channels</p>
                   <p className="text-sm text-muted-foreground">
-                    Add SMS, WhatsApp, or Messenger
+                    Add SMS, WhatsApp, Messenger, iMessage, or Voice
                   </p>
                 </div>
                 {hasFirstChatbot && firstChatbot ? (

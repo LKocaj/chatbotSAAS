@@ -21,6 +21,8 @@ import {
   Code,
   Settings,
   ExternalLink,
+  Apple,
+  Mic,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -325,6 +327,64 @@ export default function ChatbotSettingsPage() {
                 </p>
                 <Button variant="outline" size="sm">
                   Connect Facebook
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Apple Messages for Business (iMessage) */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gray-100 rounded-lg">
+                      <Apple className="h-5 w-5 text-gray-800" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">iMessage</CardTitle>
+                      <CardDescription>Apple Messages for Business</CardDescription>
+                    </div>
+                  </div>
+                  <Badge variant="secondary">Not Connected</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Enable iMessage conversations via Apple Messages for Business. Supports rich links,
+                  list pickers, Apple Pay, and time pickers for appointment booking.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`/dashboard/chatbots/${params.id}/channels/imessage`}>
+                    Configure iMessage
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Voice AI */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-purple-100 rounded-lg">
+                      <Mic className="h-5 w-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">Voice AI</CardTitle>
+                      <CardDescription>AI-powered phone calls</CardDescription>
+                    </div>
+                  </div>
+                  <Badge variant="secondary">Not Connected</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Handle inbound and outbound phone calls with AI voice conversations.
+                  Powered by Twilio Voice with real-time speech-to-text and neural TTS.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`/dashboard/chatbots/${params.id}/channels/voice`}>
+                    Configure Voice AI
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

@@ -50,6 +50,33 @@ interface TenantConfig {
       pageId?: string
       pageAccessToken?: string
     }
+    apple_business?: {
+      enabled: boolean
+      apiUrl?: string
+      apiToken?: string
+      businessId?: string
+      webhookSecret?: string
+    }
+    voice?: {
+      enabled: boolean
+      twilioAccountSid?: string
+      twilioAuthToken?: string
+      phoneNumber?: string
+      ttsVoice?: string
+      language?: string
+      transferNumber?: string
+    }
+  }
+  crmIntegrations?: {
+    hubspot?: {
+      enabled: boolean
+      apiKey?: string
+    }
+    salesforce?: {
+      enabled: boolean
+      instanceUrl?: string
+      accessToken?: string
+    }
   }
 }
 
@@ -258,6 +285,71 @@ class ChatbotApiClient {
       method: 'POST',
       body: JSON.stringify(config),
     })
+  }
+
+  // Apple Messages for Business (iMessage)
+  async configureAppleBusinessChannel(
+    tenantId: string,
+    config: {
+      apiUrl: string
+      apiToken: string
+      businessId: string
+      webhookSecret?: string
+    }
+  ): Promise<{ success: boolean; webhookUrl: string }> {
+    return this.fetch(`/api/v1/tenants/${tenantId}/channels/apple_business`, {
+      method: 'POST',
+      body: JSON.stringify(config),
+    })
+  }
+
+  // Voice AI
+  async configureVoiceChannel(
+    tenantId: string,
+    config: {
+      twilioAccountSid: string
+      twilioAuthToken: string
+      phoneNumber: string
+      ttsVoice?: string
+      language?: string
+      transferNumber?: string
+    }
+  ): Promise<{ success: boolean; webhookUrl: string }> {
+    return this.fetch(`/api/v1/tenants/${tenantId}/channels/voice`, {
+      method: 'POST',
+      body: JSON.stringify(config),
+    })
+  }
+
+  // CRM Integrations
+  async configureHubSpot(
+    tenantId: string,
+    config: { apiKey: string }
+  ): Promise<{ success: boolean; message: string }> {
+    return this.fetch(`/api/v1/tenants/${tenantId}/integrations/hubspot`, {
+      method: 'POST',
+      body: JSON.stringify(config),
+    })
+  }
+
+  async configureSalesforce(
+    tenantId: string,
+    config: { instanceUrl: string; accessToken: string }
+  ): Promise<{ success: boolean; message: string }> {
+    return this.fetch(`/api/v1/tenants/${tenantId}/integrations/salesforce`, {
+      method: 'POST',
+      body: JSON.stringify(config),
+    })
+  }
+
+  // Feedback & NPS
+  async getFeedbackStats(
+    tenantId: string
+  ): Promise<{
+    nps: { score: number; total: number; promoters: number; detractors: number }
+    sentiment: { positive: number; neutral: number; negative: number }
+  }> {
+    return this.fetch(`/api/v1/tenants/${tenantId}/feedback/stats`)
   }
 
   // Test connection

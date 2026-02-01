@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, ArrowRight, Check, Globe, Phone, MessageSquare, Loader2 } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Globe, Phone, MessageSquare, Loader2, Apple, Mic } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const steps = [
@@ -45,6 +45,20 @@ const channels = [
     name: 'Messenger',
     description: 'Facebook Messenger integration',
     icon: MessageSquare,
+    available: true,
+  },
+  {
+    id: 'apple_business',
+    name: 'iMessage',
+    description: 'Apple Messages for Business with rich links & Apple Pay',
+    icon: Apple,
+    available: true,
+  },
+  {
+    id: 'voice',
+    name: 'Voice AI',
+    description: 'AI-powered phone calls with neural text-to-speech',
+    icon: Mic,
     available: true,
   },
 ]

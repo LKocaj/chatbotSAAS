@@ -7,6 +7,28 @@ import { ChatWidget } from '@/components/landing/ChatWidget'
 function Stars() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {/* Blue Moon */}
+      <div
+        className="absolute"
+        style={{
+          top: '8%',
+          right: '12%',
+          width: '140px',
+          height: '140px',
+          opacity: 0.12,
+          animation: 'moonGlow 8s ease-in-out infinite',
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo.png"
+          alt=""
+          width={140}
+          height={140}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
+      </div>
+
       {/* Static stars layer 1 - small */}
       <div
         className="absolute inset-0"
@@ -48,20 +70,48 @@ function Stars() {
           backgroundSize: '800px 400px',
         }}
       />
-      {/* Twinkling stars */}
+      {/* Twinkling stars - layer 1 (subtle, slow) */}
       <div
-        className="absolute inset-0 animate-pulse"
+        className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(2px 2px at 75px 100px, #00ffd0, transparent),
-            radial-gradient(2px 2px at 300px 300px, #ff99b1, transparent),
-            radial-gradient(2px 2px at 500px 80px, #ffeb99, transparent),
-            radial-gradient(2px 2px at 180px 400px, #00d4ff, transparent),
-            radial-gradient(2px 2px at 650px 200px, white, transparent),
-            radial-gradient(2px 2px at 420px 450px, #00ffd0, transparent)
+            radial-gradient(1.5px 1.5px at 75px 100px, rgba(0,255,208,0.8), transparent),
+            radial-gradient(1.5px 1.5px at 300px 300px, rgba(255,153,177,0.7), transparent),
+            radial-gradient(1.5px 1.5px at 500px 80px, rgba(255,235,153,0.8), transparent),
+            radial-gradient(1.5px 1.5px at 650px 200px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1.5px 1.5px at 420px 450px, rgba(0,255,208,0.6), transparent)
           `,
           backgroundSize: '800px 550px',
-          animation: 'twinkle 4s ease-in-out infinite',
+          animation: 'twinkle 7s ease-in-out infinite',
+        }}
+      />
+      {/* Twinkling stars - layer 2 (offset timing) */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(1px 1px at 180px 400px, rgba(0,212,255,0.7), transparent),
+            radial-gradient(1px 1px at 520px 180px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 80px 320px, rgba(255,235,153,0.5), transparent),
+            radial-gradient(1px 1px at 680px 60px, rgba(0,255,208,0.6), transparent),
+            radial-gradient(1px 1px at 340px 520px, rgba(255,153,177,0.5), transparent)
+          `,
+          backgroundSize: '750px 600px',
+          animation: 'twinkle-offset 9s ease-in-out infinite',
+        }}
+      />
+      {/* Twinkling stars - layer 3 (slowest, white) */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(1px 1px at 250px 150px, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 600px 350px, rgba(255,255,255,0.4), transparent),
+            radial-gradient(1px 1px at 120px 500px, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 450px 250px, rgba(255,255,255,0.4), transparent)
+          `,
+          backgroundSize: '700px 600px',
+          animation: 'twinkle-slow 11s ease-in-out infinite',
         }}
       />
       {/* Shooting star (optional subtle touch) */}
@@ -71,7 +121,7 @@ function Stars() {
           top: '15%',
           left: '20%',
           transform: 'rotate(-45deg)',
-          animation: 'shootingStar 8s ease-in-out infinite',
+          animation: 'shootingStar 12s ease-in-out infinite',
         }}
       />
     </div>
@@ -143,7 +193,7 @@ export default function LandingPage() {
 
             {/* Subtitle */}
             <p className="text-lg text-white/50 max-w-xl mx-auto mb-10 leading-relaxed">
-              Deploy intelligent chatbots across web, SMS, WhatsApp, and Messenger. Support customers, close sales, and automate workflows — all from one platform.
+              Deploy intelligent chatbots across web, SMS, WhatsApp, Messenger, iMessage, and Voice. Support customers, close sales, and automate workflows — all from one platform.
             </p>
 
             {/* CTA */}
@@ -168,7 +218,7 @@ export default function LandingPage() {
           <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { value: '500K+', label: 'Conversations handled', color: 'text-[#00ffd0]' },
-              { value: '4', label: 'Channels supported', color: 'text-[#ff99b1]' },
+              { value: '6', label: 'Channels supported', color: 'text-[#ff99b1]' },
               { value: '< 1s', label: 'Response time', color: 'text-[#ffeb99]' },
               { value: '24/7', label: 'Always available', color: 'text-[#00d4ff]' },
             ].map((stat) => (
@@ -280,7 +330,7 @@ export default function LandingPage() {
               {
                 step: '01',
                 title: 'Connect',
-                description: 'Add the widget to your site or connect SMS, WhatsApp, and Messenger.',
+                description: 'Add the widget to your site or connect SMS, WhatsApp, Messenger, iMessage, and Voice AI.',
                 color: '#00ffd0',
               },
               {

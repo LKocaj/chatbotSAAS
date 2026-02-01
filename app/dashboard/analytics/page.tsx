@@ -14,6 +14,8 @@ import {
   Calendar,
   Globe,
   Phone,
+  Apple,
+  Mic,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -40,10 +42,12 @@ const dailyData = [
 ]
 
 const channelData = [
-  { channel: 'Website', conversations: 1856, leads: 223, percentage: 65 },
-  { channel: 'SMS', conversations: 624, leads: 78, percentage: 22 },
-  { channel: 'WhatsApp', conversations: 289, leads: 32, percentage: 10 },
-  { channel: 'Messenger', conversations: 78, leads: 9, percentage: 3 },
+  { channel: 'Website', conversations: 1856, leads: 223, percentage: 52 },
+  { channel: 'SMS', conversations: 624, leads: 78, percentage: 17 },
+  { channel: 'WhatsApp', conversations: 289, leads: 32, percentage: 8 },
+  { channel: 'Messenger', conversations: 78, leads: 9, percentage: 2 },
+  { channel: 'iMessage', conversations: 412, leads: 48, percentage: 12 },
+  { channel: 'Voice', conversations: 318, leads: 41, percentage: 9 },
 ]
 
 const recentLeads = [
@@ -225,6 +229,8 @@ export default function AnalyticsPage() {
                       {channel.channel === 'SMS' && <Phone className="h-4 w-4" />}
                       {channel.channel === 'WhatsApp' && <MessageSquare className="h-4 w-4 text-green-600" />}
                       {channel.channel === 'Messenger' && <MessageSquare className="h-4 w-4 text-blue-600" />}
+                      {channel.channel === 'iMessage' && <Apple className="h-4 w-4 text-gray-800" />}
+                      {channel.channel === 'Voice' && <Mic className="h-4 w-4 text-purple-600" />}
                       <span className="font-medium">{channel.channel}</span>
                     </div>
                     <div className="text-muted-foreground">

@@ -15,6 +15,8 @@ import {
   Star,
   Filter,
   ChevronRight,
+  Apple,
+  Mic,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -28,7 +30,7 @@ interface Message {
 interface Conversation {
   id: string
   sessionId: string
-  channel: 'website' | 'sms' | 'whatsapp' | 'messenger'
+  channel: 'website' | 'sms' | 'whatsapp' | 'messenger' | 'apple_business' | 'voice'
   chatbotName: string
   leadName?: string
   leadEmail?: string
@@ -113,6 +115,8 @@ const channelIcons: Record<string, React.ReactNode> = {
   sms: <Phone className="h-4 w-4" />,
   whatsapp: <MessageSquare className="h-4 w-4 text-green-600" />,
   messenger: <MessageSquare className="h-4 w-4 text-blue-600" />,
+  apple_business: <Apple className="h-4 w-4 text-gray-800" />,
+  voice: <Mic className="h-4 w-4 text-purple-600" />,
 }
 
 const leadScoreColors = {

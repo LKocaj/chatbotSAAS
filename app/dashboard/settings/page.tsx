@@ -18,6 +18,7 @@ import {
   Loader2,
   Check,
   ExternalLink,
+  Plug,
 } from 'lucide-react'
 
 // Mock billing data
@@ -106,6 +107,10 @@ export default function SettingsPage() {
           <TabsTrigger value="billing">
             <CreditCard className="mr-2 h-4 w-4" />
             Billing
+          </TabsTrigger>
+          <TabsTrigger value="integrations">
+            <Plug className="mr-2 h-4 w-4" />
+            Integrations
           </TabsTrigger>
           <TabsTrigger value="notifications">
             <Bell className="mr-2 h-4 w-4" />
@@ -352,6 +357,61 @@ export default function SettingsPage() {
                   </div>
                 ))}
               </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Integrations Tab */}
+        <TabsContent value="integrations" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>CRM Integrations</CardTitle>
+              <CardDescription>
+                Automatically sync captured leads to your CRM
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {[
+                { id: 'hubspot', name: 'HubSpot', description: 'Sync leads as contacts and create deals automatically', connected: false },
+                { id: 'salesforce', name: 'Salesforce', description: 'Create leads and opportunities in Salesforce', connected: false },
+                { id: 'webhook', name: 'Custom Webhook', description: 'Send lead data to any URL via webhook', connected: false },
+              ].map((integration) => (
+                <div key={integration.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div>
+                    <p className="font-medium">{integration.name}</p>
+                    <p className="text-sm text-muted-foreground">{integration.description}</p>
+                  </div>
+                  <Button variant={integration.connected ? 'outline' : 'default'} size="sm">
+                    {integration.connected ? 'Connected' : 'Connect'}
+                  </Button>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Communication Channels</CardTitle>
+              <CardDescription>
+                Manage API keys and credentials for messaging channels
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {[
+                { id: 'twilio', name: 'Twilio (SMS & Voice)', description: 'Required for SMS, WhatsApp, and Voice AI channels', connected: false },
+                { id: 'meta', name: 'Meta Business', description: 'Required for Facebook Messenger and WhatsApp', connected: false },
+                { id: 'apple', name: 'Apple Messages for Business', description: 'Required for iMessage integration via MSP', connected: false },
+              ].map((integration) => (
+                <div key={integration.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div>
+                    <p className="font-medium">{integration.name}</p>
+                    <p className="text-sm text-muted-foreground">{integration.description}</p>
+                  </div>
+                  <Button variant={integration.connected ? 'outline' : 'default'} size="sm">
+                    {integration.connected ? 'Connected' : 'Configure'}
+                  </Button>
+                </div>
+              ))}
             </CardContent>
           </Card>
         </TabsContent>
