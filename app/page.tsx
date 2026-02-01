@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
-import { Check, ArrowRight } from 'lucide-react'
+import { Check, ArrowRight, MessageCircle, Code2 } from 'lucide-react'
 import { FeaturesSection } from '@/components/landing/FeaturesSection'
 import { FAQSection } from '@/components/landing/FAQSection'
 import { ChatWidget } from '@/components/landing/ChatWidget'
+import { useLanguage } from '@/components/providers/language-provider'
 
 function Stars() {
   return (
@@ -129,6 +132,12 @@ function Stars() {
 }
 
 export default function LandingPage() {
+  const { isSimple, toggle: toggleLanguage } = useLanguage()
+
+  // Helper: pick copy based on language mode
+  // simple = dumbed down, technical = existing copy (untouched)
+  const t = (simple: string, technical: string) => isSimple ? simple : technical
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-[#0a0a12] via-[#050510] to-[#030308] text-white overflow-x-hidden">
       {/* Starry background */}
@@ -152,6 +161,15 @@ export default function LandingPage() {
             </Link>
           </nav>
           <div className="flex items-center gap-3">
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition border border-white/10 hover:bg-white/10 text-white/70 hover:text-white"
+              aria-label="Toggle language mode"
+            >
+              {isSimple ? <Code2 className="w-3.5 h-3.5" /> : <MessageCircle className="w-3.5 h-3.5" />}
+              {isSimple ? 'Technical' : 'Simple'}
+            </button>
             <Link
               href="/login"
               className="px-4 py-2 text-sm text-white/70 hover:text-white transition"
@@ -185,15 +203,18 @@ export default function LandingPage() {
 
             {/* Headline */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] mb-6">
-              Your AI team,{' '}
+              {t('Your AI chatbot, ', 'Your AI team, ')}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffd0] via-[#00d4ff] to-[#00ffd0]">
-                everywhere at once
+                {t('ready to help', 'everywhere at once')}
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-lg text-white/50 max-w-xl mx-auto mb-10 leading-relaxed">
-              Deploy intelligent chatbots across web, SMS, WhatsApp, Messenger, iMessage, and Voice. Support customers, close sales, and automate workflows — all from one platform.
+              {t(
+                'Add a smart chatbot to your website, texts, and social media. It answers questions, helps customers, and works while you sleep.',
+                'Deploy intelligent chatbots across web, SMS, WhatsApp, Messenger, iMessage, and Voice. Support customers, close sales, and automate workflows — all from one platform.'
+              )}
             </p>
 
             {/* CTA */}
@@ -202,7 +223,7 @@ export default function LandingPage() {
                 href="/signup"
                 className="px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition flex items-center gap-2"
               >
-                Start Free Trial
+                {t('Try It Free', 'Start Free Trial')}
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
@@ -217,10 +238,10 @@ export default function LandingPage() {
           {/* Stats Row */}
           <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { value: '500K+', label: 'Conversations handled', color: 'text-[#00ffd0]' },
-              { value: '6', label: 'Channels supported', color: 'text-[#ff99b1]' },
-              { value: '< 1s', label: 'Response time', color: 'text-[#ffeb99]' },
-              { value: '24/7', label: 'Always available', color: 'text-[#00d4ff]' },
+              { value: '500K+', label: t('Chats completed', 'Conversations handled'), color: 'text-[#00ffd0]' },
+              { value: '6', label: t('Places it works', 'Channels supported'), color: 'text-[#ff99b1]' },
+              { value: '< 1s', label: t('Reply speed', 'Response time'), color: 'text-[#ffeb99]' },
+              { value: '24/7', label: t('Never sleeps', 'Always available'), color: 'text-[#00d4ff]' },
             ].map((stat) => (
               <div key={stat.label} className="text-center p-6 rounded-2xl bg-white/[0.02] border border-white/5">
                 <p className={`text-3xl md:text-4xl font-semibold ${stat.color}`}>{stat.value}</p>
@@ -240,7 +261,9 @@ export default function LandingPage() {
 
         <div className="relative max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-[#00d4ff] text-sm font-medium uppercase tracking-wider mb-4">Why OnCall Chat</p>
+            <p className="text-[#00d4ff] text-sm font-medium uppercase tracking-wider mb-4">
+              {t('Why It Works', 'Why OnCall Chat')}
+            </p>
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
               The numbers speak for themselves
             </h2>
@@ -250,22 +273,22 @@ export default function LandingPage() {
             {[
               {
                 stat: '67%',
-                label: 'of consumers prefer chatbots for quick answers',
+                label: t('of people prefer chatting with a bot for quick help', 'of consumers prefer chatbots for quick answers'),
                 color: '#00ffd0',
               },
               {
                 stat: '30%',
-                label: 'reduction in customer service costs',
+                label: t('less money spent on customer support', 'reduction in customer service costs'),
                 color: '#ff99b1',
               },
               {
                 stat: '3x',
-                label: 'faster response times vs. human-only support',
+                label: t('faster replies than a human-only team', 'faster response times vs. human-only support'),
                 color: '#ffeb99',
               },
               {
                 stat: '24/7',
-                label: 'availability without adding headcount',
+                label: t('always on, no extra staff needed', 'availability without adding headcount'),
                 color: '#00d4ff',
               },
             ].map((item) => (
@@ -287,19 +310,28 @@ export default function LandingPage() {
           <div className="mt-16 grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: '💰',
-                title: 'Increase Revenue',
-                description: 'Capture leads 24/7, qualify prospects instantly, and book appointments while you sleep.',
+                icon: '\u{1F4B0}',
+                title: t('Make More Money', 'Increase Revenue'),
+                description: t(
+                  'Your chatbot catches leads day and night, answers their questions, and books meetings for you automatically.',
+                  'Capture leads 24/7, qualify prospects instantly, and book appointments while you sleep.'
+                ),
               },
               {
-                icon: '⚡',
-                title: 'Boost Productivity',
-                description: 'Free your team from repetitive questions. Let AI handle the FAQs so humans can focus on high-value work.',
+                icon: '\u{26A1}',
+                title: t('Save Your Team Time', 'Boost Productivity'),
+                description: t(
+                  'Stop answering the same questions over and over. Let the bot handle the easy stuff so your team can focus on what matters.',
+                  'Free your team from repetitive questions. Let AI handle the FAQs so humans can focus on high-value work.'
+                ),
               },
               {
-                icon: '😊',
-                title: 'Happier Customers',
-                description: 'Instant responses, no hold times, consistent answers. Customers get help when they need it.',
+                icon: '\u{1F60A}',
+                title: t('Keep Customers Happy', 'Happier Customers'),
+                description: t(
+                  'No more waiting on hold. Customers get instant answers any time they ask.',
+                  'Instant responses, no hold times, consistent answers. Customers get help when they need it.'
+                ),
               },
             ].map((item) => (
               <div key={item.title} className="text-center">
@@ -321,7 +353,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <p className="text-[#ff99b1] text-sm font-medium uppercase tracking-wider mb-4">How It Works</p>
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
-              Up and running in minutes
+              {t('Three easy steps', 'Up and running in minutes')}
             </h2>
           </div>
 
@@ -329,20 +361,29 @@ export default function LandingPage() {
             {[
               {
                 step: '01',
-                title: 'Connect',
-                description: 'Add the widget to your site or connect SMS, WhatsApp, Messenger, iMessage, and Voice AI.',
+                title: t('Add It', 'Connect'),
+                description: t(
+                  'Paste a small code snippet on your website, or connect your phone number and social accounts.',
+                  'Add the widget to your site or connect SMS, WhatsApp, Messenger, iMessage, and Voice AI.'
+                ),
                 color: '#00ffd0',
               },
               {
                 step: '02',
-                title: 'Train',
-                description: 'Upload your knowledge base — FAQs, product info, policies, and more.',
+                title: t('Teach It', 'Train'),
+                description: t(
+                  'Upload your FAQs, product info, or any documents. The bot reads them and learns your business.',
+                  'Upload your knowledge base — FAQs, product info, policies, and more.'
+                ),
                 color: '#ff99b1',
               },
               {
                 step: '03',
-                title: 'Automate',
-                description: 'Let AI handle support, sales, and scheduling across every channel.',
+                title: t('Let It Work', 'Automate'),
+                description: t(
+                  'Sit back. The chatbot answers questions, helps customers, and books meetings on its own.',
+                  'Let AI handle support, sales, and scheduling across every channel.'
+                ),
                 color: '#ffeb99',
               },
             ].map((item) => (
@@ -376,24 +417,30 @@ export default function LandingPage() {
               {
                 name: 'Starter',
                 price: '$99',
-                description: 'For small businesses',
-                features: ['1 chatbot', 'Website widget', '1,000 messages/mo', 'Email support'],
+                description: t('Best for trying it out', 'For small businesses'),
+                features: isSimple
+                  ? ['1 chatbot', 'Works on your website', 'Up to 1,000 chats/mo', 'Email help if you need it']
+                  : ['1 chatbot', 'Website widget', '1,000 messages/mo', 'Email support'],
                 accent: '#00ffd0',
                 popular: false,
               },
               {
                 name: 'Professional',
                 price: '$249',
-                description: 'For growing teams',
-                features: ['3 chatbots', 'All channels', '5,000 messages/mo', 'Priority support', 'Analytics'],
+                description: t('Best for most businesses', 'For growing teams'),
+                features: isSimple
+                  ? ['3 chatbots', 'Website, text, & social media', 'Up to 5,000 chats/mo', 'Fast support', 'See how it\'s performing']
+                  : ['3 chatbots', 'All channels', '5,000 messages/mo', 'Priority support', 'Analytics'],
                 accent: '#ff99b1',
                 popular: true,
               },
               {
                 name: 'Enterprise',
                 price: '$499',
-                description: 'For organizations',
-                features: ['Unlimited chatbots', 'White-label', 'Unlimited messages', 'Dedicated support', 'Custom integrations'],
+                description: t('For bigger companies', 'For organizations'),
+                features: isSimple
+                  ? ['Unlimited chatbots', 'Your own branding', 'Unlimited chats', 'Personal support rep', 'Connect to your other tools']
+                  : ['Unlimited chatbots', 'White-label', 'Unlimited messages', 'Dedicated support', 'Custom integrations'],
                 accent: '#ffeb99',
                 popular: false,
               },
@@ -461,16 +508,22 @@ export default function LandingPage() {
 
             <div className="relative px-8 py-16 md:px-16 md:py-24 text-center">
               <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
-                Ready to transform your customer experience?
+                {t(
+                  'Ready to let AI handle your customer chats?',
+                  'Ready to transform your customer experience?'
+                )}
               </h2>
               <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
-                Join thousands of businesses using OnCall Chat to automate support, boost sales, and delight customers 24/7.
+                {t(
+                  'Thousands of businesses already use OnCall Chat. Set it up in minutes and watch it work.',
+                  'Join thousands of businesses using OnCall Chat to automate support, boost sales, and delight customers 24/7.'
+                )}
               </p>
               <Link
                 href="/signup"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition"
               >
-                Start Your Free Trial
+                {t('Try It Free', 'Start Your Free Trial')}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -495,7 +548,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-6 text-sm text-white/40">
               <Link href="/privacy" className="hover:text-white transition">Privacy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
-              <span>© {new Date().getFullYear()} OnCall Chat</span>
+              <span>&copy; {new Date().getFullYear()} OnCall Chat</span>
             </div>
           </div>
         </div>

@@ -2,64 +2,79 @@
 
 import { useState } from 'react'
 import { X, HelpCircle, ArrowRight } from 'lucide-react'
-
-const faqs = [
-  {
-    q: 'How long does setup take?',
-    a: 'Most customers are up and running in under 30 minutes. Just add our widget code to your site and configure your chatbot.',
-    details: {
-      headline: 'Quick and painless onboarding',
-      steps: [
-        'Sign up and create your first chatbot',
-        'Customize appearance and responses',
-        'Copy the embed code to your website',
-        'Go live and start engaging visitors',
-      ],
-    },
-  },
-  {
-    q: 'Can I customize the chatbot responses?',
-    a: 'Yes! You can train the AI on your specific products, services, FAQs, and brand voice. The bot learns from your knowledge base.',
-    details: {
-      headline: 'Full control over your AI assistant',
-      steps: [
-        'Upload documents, FAQs, and product info',
-        'Define your brand voice and tone',
-        'Set up custom conversation flows',
-        'Review and refine responses over time',
-      ],
-    },
-  },
-  {
-    q: 'What channels are supported?',
-    a: 'We support website chat widgets, SMS, WhatsApp Business, and Facebook Messenger — all managed from one dashboard.',
-    details: {
-      headline: 'Meet customers where they are',
-      steps: [
-        'Website chat widget with custom styling',
-        'SMS integration for text-based support',
-        'WhatsApp Business API connection',
-        'Facebook Messenger integration',
-      ],
-    },
-  },
-  {
-    q: 'Is there a free trial?',
-    a: 'Yes, all plans include a 14-day free trial with full access to features. No credit card required.',
-    details: {
-      headline: 'Try everything risk-free',
-      steps: [
-        '14 days of full feature access',
-        'No credit card required to start',
-        'Unlimited chatbots during trial',
-        'Full support from our team',
-      ],
-    },
-  },
-]
+import { useLanguage } from '@/components/providers/language-provider'
 
 export function FAQSection() {
   const [selectedFAQ, setSelectedFAQ] = useState<number | null>(null)
+  const { isSimple } = useLanguage()
+  const t = (simple: string, technical: string) => isSimple ? simple : technical
+
+  const faqs = [
+    {
+      q: t('How fast can I get started?', 'How long does setup take?'),
+      a: t(
+        'Most people get going in under 30 minutes. Just add a small piece of code to your website and set up your chatbot.',
+        'Most customers are up and running in under 30 minutes. Just add our widget code to your site and configure your chatbot.'
+      ),
+      details: {
+        headline: t('Super easy to get started', 'Quick and painless onboarding'),
+        steps: [
+          t('Create an account and your first chatbot', 'Sign up and create your first chatbot'),
+          t('Make it look and sound like your brand', 'Customize appearance and responses'),
+          t('Paste the code into your website', 'Copy the embed code to your website'),
+          t('You\'re live! Start chatting with visitors', 'Go live and start engaging visitors'),
+        ],
+      },
+    },
+    {
+      q: t('Can I control what the chatbot says?', 'Can I customize the chatbot responses?'),
+      a: t(
+        'Yes! You teach the AI about your business, products, and how you talk. It learns from what you give it.',
+        'Yes! You can train the AI on your specific products, services, FAQs, and brand voice. The bot learns from your knowledge base.'
+      ),
+      details: {
+        headline: t('You\'re in charge of your AI', 'Full control over your AI assistant'),
+        steps: [
+          t('Add your documents, FAQs, and product details', 'Upload documents, FAQs, and product info'),
+          t('Tell it how your brand speaks', 'Define your brand voice and tone'),
+          t('Build custom chat flows', 'Set up custom conversation flows'),
+          t('Keep improving it over time', 'Review and refine responses over time'),
+        ],
+      },
+    },
+    {
+      q: t('Where can my chatbot talk to people?', 'What channels are supported?'),
+      a: t(
+        'Your website, text messages, WhatsApp, and Facebook Messenger — all from one screen.',
+        'We support website chat widgets, SMS, WhatsApp Business, and Facebook Messenger — all managed from one dashboard.'
+      ),
+      details: {
+        headline: t('Be wherever your customers are', 'Meet customers where they are'),
+        steps: [
+          t('Chat bubble on your website', 'Website chat widget with custom styling'),
+          t('Text message support (SMS)', 'SMS integration for text-based support'),
+          t('WhatsApp messaging', 'WhatsApp Business API connection'),
+          t('Facebook Messenger', 'Facebook Messenger integration'),
+        ],
+      },
+    },
+    {
+      q: t('Can I try it for free?', 'Is there a free trial?'),
+      a: t(
+        'Yes! Try everything free for 14 days. No credit card needed.',
+        'Yes, all plans include a 14-day free trial with full access to features. No credit card required.'
+      ),
+      details: {
+        headline: t('Try it free, no strings attached', 'Try everything risk-free'),
+        steps: [
+          t('14 days with all features unlocked', '14 days of full feature access'),
+          t('No credit card needed to sign up', 'No credit card required to start'),
+          t('Make as many chatbots as you want', 'Unlimited chatbots during trial'),
+          t('We\'re here to help the whole time', 'Full support from our team'),
+        ],
+      },
+    },
+  ]
 
   return (
     <section id="faq" className="py-24">
@@ -67,7 +82,7 @@ export function FAQSection() {
         <div className="text-center mb-16">
           <p className="text-[#00d4ff] text-sm font-medium uppercase tracking-wider mb-4">FAQ</p>
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">
-            Common questions
+            {t('Got questions?', 'Common questions')}
           </h2>
         </div>
 
